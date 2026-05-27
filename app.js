@@ -118,33 +118,199 @@ function showDenied(composerId) {
 // ── Seed posts ────────────────────────────────────
 function buildSeedPosts() {
   const now = Date.now();
+  const m   = 60_000;
   const h   = 3_600_000;
   const d   = 86_400_000;
 
+  // Pre-assign IDs for posts that will receive replies
+  const idWelcome       = generateId();
+  const idTodCowards    = generateId();
+  const idDexHotTake    = generateId();
+  const idMargotConfess = generateId();
+  const idFjordRecord   = generateId();
+
   return [
+    // ── System ───────────────────────────────────────
     {
-      id:        generateId(),
-      username:  SYSTEM_USER,
-      content:   'Welcome to SPITBALL.\n\nWords land here. Forever.\n\nNo delete. No backspace. No images. No video. Just text — permanent, unedited, exactly as you typed it.',
-      createdAt: now - 2 * d,
-      parentId:  null,
-      likeCount: 0,
+      id: idWelcome, username: SYSTEM_USER,
+      content: 'Welcome to Spitball.\n\nWords land here. Forever.\n\nNo delete. No backspace. No images. No video. Just text — permanent, unedited, exactly as you typed it.',
+      createdAt: now - 7 * d, parentId: null, likeCount: 14,
     },
     {
-      id:        generateId(),
-      username:  SYSTEM_USER,
-      content:   'THE RULES:\n\n— Backspace is disabled.\n— There are no drafts.\n— No images. No video. Ever.\n— Once typed, a character is permanent.\n— "Spit it" is just a formality. You\'ve already said it.',
-      createdAt: now - d - 4 * h,
-      parentId:  null,
-      likeCount: 0,
+      id: generateId(), username: SYSTEM_USER,
+      content: 'THE RULES:\n\n— Backspace is disabled.\n— There are no drafts.\n— No images. No video. Ever.\n— Once typed, a character is permanent.\n— "Spit it" is just a formality. You\'ve already said it.',
+      createdAt: now - 7 * d + 30 * m, parentId: null, likeCount: 22,
     },
     {
-      id:        generateId(),
-      username:  SYSTEM_USER,
-      content:   'A typo is not a mistake.\n\nIt is a record of how fast you were thinking.',
-      createdAt: now - 6 * h,
-      parentId:  null,
-      likeCount: 0,
+      id: generateId(), username: SYSTEM_USER,
+      content: 'A typo is not a mistake.\n\nIt is a record of how fast you were thinking.',
+      createdAt: now - 5 * d, parentId: null, likeCount: 47,
+    },
+
+    // ── 6 days ago ───────────────────────────────────
+    {
+      id: generateId(), username: 'margot',
+      content: 'thinking about how every other social app is a lie. you can delete. you can edit. you curate a version of yourself that never existed.\n\nhere you cant.\n\nnot sure if thats liberating or horrifying.',
+      createdAt: now - 6 * d, parentId: null, likeCount: 31,
+    },
+    {
+      id: generateId(), username: 'dex__r',
+      content: 'first post. testing 123. wait this is real',
+      createdAt: now - 6 * d + 2 * h, parentId: null, likeCount: 8,
+    },
+    {
+      id: generateId(), username: 'blip',
+      content: 'hi',
+      createdAt: now - 6 * d + 4 * h, parentId: null, likeCount: 19,
+    },
+
+    // ── 5 days ago ───────────────────────────────────
+    {
+      id: generateId(), username: 'priya_k',
+      content: 'Day 1. Already regret my username.',
+      createdAt: now - 5 * d + h, parentId: null, likeCount: 55,
+    },
+    {
+      id: idTodCowards, username: 'tod',
+      content: 'EVERY OTHER SOCIAL MEDIA LETS YOU DELETE YOUR POSTS.\n\nCOWARDS.',
+      createdAt: now - 5 * d + 3 * h, parentId: null, likeCount: 88,
+    },
+
+    // ── 4 days ago ───────────────────────────────────
+    {
+      id: generateId(), username: 'wren',
+      content: 'stared at the composer for six minutes.\n\nthis is what came out.',
+      createdAt: now - 4 * d, parentId: null, likeCount: 72,
+    },
+    {
+      id: generateId(), username: 'margot',
+      content: 'tpyed something wrong just now. sat there and watched it. the cursor blinked. the typo stayed. we understood each other.',
+      createdAt: now - 4 * d + 45 * m, parentId: null, likeCount: 104,
+    },
+    {
+      id: idFjordRecord, username: 'fjord',
+      content: 'The permanence thing is interesting. Other platforms let you curate yourself retroactively. Here the archaeological record is complete. Future you will see exactly what present you was thinking.\n\nIncluding the typos.',
+      createdAt: now - 4 * d + 2 * h, parentId: null, likeCount: 61,
+    },
+
+    // ── 3 days ago ───────────────────────────────────
+    {
+      id: idDexHotTake, username: 'dex__r',
+      content: 'okay hot take: teh typos are the whole point',
+      createdAt: now - 3 * d, parentId: null, likeCount: 33,
+    },
+    {
+      id: generateId(), username: 'blip',
+      content: 'nope',
+      createdAt: now - 3 * d + h, parentId: null, likeCount: 27,
+    },
+    {
+      id: generateId(), username: 'priya_k',
+      content: 'someone replied to my first post.\n\ni cannot undo this interaction.',
+      createdAt: now - 3 * d + 3 * h, parentId: null, likeCount: 41,
+    },
+
+    // ── 2 days ago ───────────────────────────────────
+    {
+      id: generateId(), username: 'wren',
+      content: 'good morning. grey sky.',
+      createdAt: now - 2 * d, parentId: null, likeCount: 18,
+    },
+    {
+      id: generateId(), username: 'tod',
+      content: 'my first spit is just "TESTING" in all caps.\n\nit will be there forever.\n\ni am at peace with this.',
+      createdAt: now - 2 * d + h, parentId: null, likeCount: 96,
+    },
+    {
+      id: generateId(), username: 'fjord',
+      content: 'typed "teh" earlier. watched it stay.\n\ntruly this is the human condition.',
+      createdAt: now - 2 * d + 2 * h, parentId: null, likeCount: 53,
+    },
+    {
+      id: idMargotConfess, username: 'margot',
+      content: 'every post on here is a confession',
+      createdAt: now - 2 * d + 5 * h, parentId: null, likeCount: 129,
+    },
+
+    // ── Yesterday ────────────────────────────────────
+    {
+      id: generateId(), username: 'dex__r',
+      content: 'someone liked my post and they cant undo it either lmao\n\nwe are bonded now',
+      createdAt: now - d, parentId: null, likeCount: 44,
+    },
+    {
+      id: generateId(), username: 'blip',
+      content: 'wait',
+      createdAt: now - d + 2 * h, parentId: null, likeCount: 38,
+    },
+    {
+      id: generateId(), username: 'wren',
+      content: 'something happened today that i keep almost typing and then not.\n\nthis will have to be the post.',
+      createdAt: now - d + 4 * h, parentId: null, likeCount: 67,
+    },
+    {
+      id: generateId(), username: 'priya_k',
+      content: 'the no-delete rule felt like a gimmick at first.\n\nnow i think its the only honest rule any platform has ever had.',
+      createdAt: now - 22 * h, parentId: null, likeCount: 83,
+    },
+
+    // ── Today ────────────────────────────────────────
+    {
+      id: generateId(), username: 'tod',
+      content: 'NEW PERSONAL RULE: post first think later\n\nthis is the way',
+      createdAt: now - 8 * h, parentId: null, likeCount: 51,
+    },
+    {
+      id: generateId(), username: 'margot',
+      content: 'strange feeling to scroll back and see the exact moment you changed your mind about something.\n\nthe old post doesnt disappear. it just sits there being wrong.',
+      createdAt: now - 4 * h, parentId: null, likeCount: 77,
+    },
+    {
+      id: generateId(), username: 'fjord',
+      content: 'been on here a week. thing i notice is i think more carefully before i type now. not because i want to sound smart. because i know it will stay.',
+      createdAt: now - 2 * h, parentId: null, likeCount: 34,
+    },
+    {
+      id: generateId(), username: 'blip',
+      content: '.',
+      createdAt: now - 30 * m, parentId: null, likeCount: 91,
+    },
+
+    // ── Replies ──────────────────────────────────────
+    {
+      id: generateId(), username: 'dex__r',
+      content: 'first reply on this thing. hi',
+      createdAt: now - 7 * d + h, parentId: idWelcome, likeCount: 12,
+    },
+    {
+      id: generateId(), username: 'priya_k',
+      content: 'this is the most accurate thing anyone has said on any platform',
+      createdAt: now - 5 * d + 4 * h, parentId: idTodCowards, likeCount: 37,
+    },
+    {
+      id: generateId(), username: 'wren',
+      content: 'posting. no thoughts. head empty.',
+      createdAt: now - 5 * d + 5 * h, parentId: idTodCowards, likeCount: 22,
+    },
+    {
+      id: generateId(), username: 'margot',
+      content: 'teh is correct actually',
+      createdAt: now - 3 * d + 30 * m, parentId: idDexHotTake, likeCount: 66,
+    },
+    {
+      id: generateId(), username: 'blip',
+      content: 'yeah',
+      createdAt: now - 4 * d + 3 * h, parentId: idFjordRecord, likeCount: 29,
+    },
+    {
+      id: generateId(), username: 'wren',
+      content: 'and you cannot take it to confession to have it forgiven',
+      createdAt: now - 2 * d + 6 * h, parentId: idMargotConfess, likeCount: 45,
+    },
+    {
+      id: generateId(), username: 'dex__r',
+      content: 'every scroll is evidence',
+      createdAt: now - 2 * d + 7 * h, parentId: idMargotConfess, likeCount: 33,
     },
   ];
 }
