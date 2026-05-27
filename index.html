@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SPITBALL — where words land. Forever. No delete. No backspace. No media. No mercy.">
+  <title>SPITBALL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ─── USERNAME SETUP MODAL ─────────────────────────── -->
+  <div id="modal-setup" class="modal">
+    <div class="modal-box">
+
+      <div class="modal-masthead">SPITBALL</div>
+      <div class="modal-tagline">Where words land. Forever.</div>
+
+      <div class="rules">
+        <div class="rules-title">The Rules</div>
+        <div class="rule">I.&nbsp;&nbsp; There is no delete.</div>
+        <div class="rule">II.&nbsp; There is no backspace.</div>
+        <div class="rule">III. There are no drafts.</div>
+        <div class="rule">IV.&nbsp; No images. No video. Text only.</div>
+        <div class="rule">V.&nbsp;&nbsp; What you type is what you meant.</div>
+      </div>
+
+      <div class="username-setup">
+        <div class="field-label">Choose your name — choose carefully</div>
+        <div id="username-input-display" class="username-display">
+          <span id="username-chars"></span><span class="cursor blink">▌</span>
+        </div>
+        <div id="username-feedback" class="feedback hidden"></div>
+        <button id="btn-confirm-username" class="btn-primary" disabled>
+          I understand — lock it in
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── MAIN APPLICATION ──────────────────────────────── -->
+  <div id="app" class="hidden">
+
+    <header class="masthead">
+      <a class="site-title" href="#feed" id="nav-home-link">SPITBALL</a>
+      <nav class="masthead-nav">
+        <a href="#feed" class="nav-link" id="nav-feed-link">Feed</a>
+        <a href="#profile" class="nav-link" id="nav-profile-link">@<span id="nav-username-display"></span></a>
+      </nav>
+    </header>
+
+    <!-- ── FEED VIEW ──────────────────────────── -->
+    <div id="view-feed" class="view hidden">
+
+      <div class="composer-wrapper" id="main-composer-wrapper">
+        <div class="composer" id="main-composer">
+          <div class="composer-header">
+            <span class="composer-label" id="main-composer-label">New Spit</span>
+            <span class="char-count"><span id="main-char-count">0</span>/280</span>
+          </div>
+          <div class="composer-body" id="main-composer-body">
+            <div class="composer-text">
+              <span id="main-composer-chars"></span><span class="cursor blink" id="main-cursor">▌</span>
+            </div>
+          </div>
+          <div class="composer-footer">
+            <span class="composer-hint" id="main-composer-hint">Click to compose — no backspace — no mercy</span>
+            <button id="btn-blot" class="btn-primary btn-inline" disabled>Spit it</button>
+          </div>
+        </div>
+        <div id="draft-notice" class="draft-notice hidden">
+          ⚠ Unfinished spit in progress — it will wait for you
+        </div>
+      </div>
+
+      <div id="feed" class="feed"></div>
+
+    </div>
+
+    <!-- ── POST DETAIL VIEW ───────────────────── -->
+    <div id="view-post" class="view hidden">
+
+      <div class="view-nav">
+        <button class="btn-ghost" id="btn-back">← Back to feed</button>
+      </div>
+
+      <div id="post-detail-container"></div>
+
+      <div class="section-label">Replies</div>
+
+      <div class="composer-wrapper" id="reply-composer-wrapper">
+        <div class="composer" id="reply-composer">
+          <div class="composer-header">
+            <span class="composer-label" id="reply-composer-label">Your Reply</span>
+            <span class="char-count"><span id="reply-char-count">0</span>/280</span>
+          </div>
+          <div class="composer-body" id="reply-composer-body">
+            <div class="composer-text">
+              <span id="reply-composer-chars"></span><span class="cursor blink" id="reply-cursor">▌</span>
+            </div>
+          </div>
+          <div class="composer-footer">
+            <span class="composer-hint" id="reply-composer-hint">Click to reply — no take-backs</span>
+            <button id="btn-blot-reply" class="btn-primary btn-inline" disabled>Spit reply</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="replies-container" class="thread-replies"></div>
+
+    </div>
+
+    <!-- ── PROFILE VIEW ───────────────────────── -->
+    <div id="view-profile" class="view hidden">
+      <div id="profile-header-container"></div>
+      <div id="profile-posts-container" class="feed"></div>
+    </div>
+
+  </div>
+
+  <!-- Hidden input for keyboard capture (mobile + desktop fallback) -->
+  <input
+    id="hidden-input"
+    type="text"
+    autocomplete="off"
+    autocorrect="off"
+    autocapitalize="off"
+    spellcheck="false"
+    aria-hidden="true"
+    tabindex="-1"
+    style="position:fixed;top:0;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;"
+  >
+
+  <script src="app.js"></script>
+</body>
+</html>
