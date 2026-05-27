@@ -102,17 +102,16 @@ function showDenied(composerId) {
   composer.classList.add('shake');
   setTimeout(() => composer.classList.remove('shake'), 400);
 
-  const header = composer.querySelector('.composer-header');
-  const label  = composer.querySelector('.composer-label');
-  if (!header || !label) return;
+  const legend = composer.querySelector('legend');
+  if (!legend) return;
 
-  const orig = label.textContent;
-  header.classList.add('denied');
-  label.textContent = 'REDACTED';
+  const orig = legend.textContent;
+  composer.classList.add('denied');
+  legend.textContent = '⊘ redacted';
 
   setTimeout(() => {
-    header.classList.remove('denied');
-    label.textContent = orig;
+    composer.classList.remove('denied');
+    legend.textContent = orig;
   }, 300);
 }
 
@@ -288,11 +287,7 @@ function renderFeed() {
 
   const feedEl = el('feed');
   if (topLevel.length === 0) {
-    feedEl.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-heading">Nothing here yet.</div>
-        <div class="empty-state-sub">Start a spit above.</div>
-      </div>`;
+    feedEl.innerHTML = `<div class="empty-state">Nothing here yet.</div>`;
   } else {
     feedEl.innerHTML = topLevel.map(p => buildPostHTML(p)).join('');
     bindPostActions(feedEl);
@@ -319,10 +314,7 @@ function renderReplies(postId) {
 
   const repliesEl = el('replies-container');
   if (replies.length === 0) {
-    repliesEl.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-sub">No replies yet.</div>
-      </div>`;
+    repliesEl.innerHTML = `<div class="empty-state">No replies yet.</div>`;
   } else {
     repliesEl.innerHTML = replies
       .map((r, i) => buildThreadItemHTML(r, i === replies.length - 1))
@@ -347,8 +339,7 @@ function renderProfile() {
   el('profile-header-container').innerHTML = `
     <div class="profile-header">
       <div class="profile-handle">@${escapeHTML(u.username)}</div>
-      <div class="profile-meta">Member since ${joinDate}</div>
-      <div class="profile-badge">Permanent Record</div>
+      <div class="profile-meta">Joined ${joinDate}</div>
       <div class="profile-stats">
         <div class="stat">
           <span class="stat-value">${userPosts.length}</span>
@@ -367,10 +358,7 @@ function renderProfile() {
 
   const postsEl = el('profile-posts-container');
   if (userPosts.length === 0) {
-    postsEl.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-sub">No spits yet.</div>
-      </div>`;
+    postsEl.innerHTML = `<div class="empty-state">No spits yet.</div>`;
   } else {
     postsEl.innerHTML = userPosts.map(p => buildPostHTML(p)).join('');
     bindPostActions(postsEl);
@@ -382,49 +370,40 @@ function syncComposerUI(type) {
   if (type === 'main') {
     const draft  = state.draft;
     const active = state.mainComposerActive;
+    const len    = draft.length;
 
     setText('main-composer-chars', draft);
-    setText('main-char-count', draft.length);
 
-    const countEl = el('main-char-count').parentElement;
-    countEl.classList.toggle('near-limit', draft.length >= 240);
-    countEl.classList.toggle('at-limit',   draft.length >= MAX_CHARS);
+    const countEl = el('main-char-count');
+    countEl.textContent = `${len}/280`;
+    countEl.classList.toggle('near', len >= 240);
+    countEl.classList.toggle('full', len >= MAX_CHARS);
 
     el('btn-blot').disabled = draft.trim().length === 0;
-    el('main-composer-body').classList.toggle('active', active);
+    el('main-composer').classList.toggle('active', active);
     el('main-cursor').classList.toggle('fast', active);
 
     const hint = el('main-composer-hint');
-    if (active) {
-      hint.textContent = 'Composing — no backspace — no mercy';
-    } else if (draft.length > 0) {
-      hint.textContent = 'Click to resume — draft saved forever';
-    } else {
-      hint.textContent = 'Click to compose — no backspace — no mercy';
-    }
+    hint.textContent = active ? '' : draft.length > 0 ? 'draft saved' : 'no backspace, no mercy';
+
   } else {
     const draft  = state.replyDraft;
     const active = state.replyComposerActive;
+    const len    = draft.length;
 
     setText('reply-composer-chars', draft);
-    setText('reply-char-count', draft.length);
 
-    const countEl = el('reply-char-count').parentElement;
-    countEl.classList.toggle('near-limit', draft.length >= 240);
-    countEl.classList.toggle('at-limit',   draft.length >= MAX_CHARS);
+    const countEl = el('reply-char-count');
+    countEl.textContent = `${len}/280`;
+    countEl.classList.toggle('near', len >= 240);
+    countEl.classList.toggle('full', len >= MAX_CHARS);
 
     el('btn-blot-reply').disabled = draft.trim().length === 0;
-    el('reply-composer-body').classList.toggle('active', active);
+    el('reply-composer').classList.toggle('active', active);
     el('reply-cursor').classList.toggle('fast', active);
 
     const hint = el('reply-composer-hint');
-    if (active) {
-      hint.textContent = 'Composing reply — no take-backs';
-    } else if (draft.length > 0) {
-      hint.textContent = 'Click to resume reply';
-    } else {
-      hint.textContent = 'Click to reply — no take-backs';
-    }
+    hint.textContent = active ? '' : draft.length > 0 ? 'draft saved' : '';
   }
 }
 
@@ -605,11 +584,11 @@ function spit() {
   deactivateComposer('main');
   renderFeed();
 
-  // Success flash
+  // Success flash on the legend
   const label = el('main-composer-label');
   if (label) {
-    label.textContent = 'SPAT — PERMANENT';
-    setTimeout(() => { label.textContent = 'New Spit'; }, 2000);
+    label.textContent = 'spat ✓';
+    setTimeout(() => { label.textContent = 'New Spit'; }, 1800);
   }
 }
 
@@ -645,8 +624,8 @@ function spitReply() {
 
   const label = el('reply-composer-label');
   if (label) {
-    label.textContent = 'REPLY SPAT';
-    setTimeout(() => { label.textContent = 'Your Reply'; }, 2000);
+    label.textContent = 'reply spat ✓';
+    setTimeout(() => { label.textContent = 'Your reply'; }, 1800);
   }
 }
 
