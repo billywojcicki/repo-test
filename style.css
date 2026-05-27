@@ -442,30 +442,3 @@ fieldset.composer.denied legend { color: var(--red); font-style: italic; }
   .composer-hint { display: none; }
   .profile-stats { gap: 16px; }
 }
-
-
-/* ── Style Switcher ──────────────────────────────── */
-
-.style-switcher {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  display: flex;
-  gap: 4px;
-  z-index: 999;
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 4px 6px;
-}
-
-.style-switcher a {
-  font-family: 'Courier New', monospace;
-  font-size: 0.75rem;
-  color: #666;
-  text-decoration: none;
-  padding: 2px 4px;
-  border: 1px solid transparent;
-}
-
-.style-switcher a:hover { color: #000; border-color: #ccc; }
-.style-switcher a.current { color: #000; font-weight: 700; border: 1px solid #000; }
