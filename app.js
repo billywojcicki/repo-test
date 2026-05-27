@@ -102,7 +102,7 @@ function showDenied(composerId) {
   composer.classList.add('shake');
   setTimeout(() => composer.classList.remove('shake'), 400);
 
-  const legend = composer.querySelector('legend');
+  const legend = composer.querySelector('legend, .composer-label');
   if (!legend) return;
 
   const orig = legend.textContent;
