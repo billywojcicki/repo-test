@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>repo-test</title>
+  <link rel="stylesheet" href="feed3.css">
+</head>
+<body>
+
+  <!-- Setup modal -->
+  <div id="modal-setup" class="modal">
+    <div class="modal-box">
+      <h1 class="modal-title">Spitball</h1>
+      <p class="modal-sub">Where words land. Forever.</p>
+
+      <p class="rules-heading">The rules:</p>
+      <ol class="rules-list">
+        <li>There is no delete.</li>
+        <li>There is no backspace.</li>
+        <li>No images. No video. Text only.</li>
+        <li>What you type is what you meant.</li>
+      </ol>
+
+      <hr>
+
+      <label class="field-label" for="username-input-display">
+        Pick a username. You can't change it later.
+      </label>
+      <div id="username-input-display" class="username-display">
+        <span id="username-chars"></span><span class="cursor blink">▌</span>
+      </div>
+      <p id="username-feedback" class="field-error hidden"></p>
+      <button id="btn-confirm-username" class="btn-submit" disabled>
+        Lock it in →
+      </button>
+    </div>
+  </div>
+
+  <!-- Main app -->
+  <div id="app" class="hidden">
+
+    <header class="masthead">
+      <a class="site-title" href="#feed" id="nav-home-link">Spitball</a>
+      <nav class="site-nav">
+        <a href="#feed"    id="nav-feed-link">Feed</a>
+        <a href="#profile" id="nav-profile-link">@<span id="nav-username-display"></span></a>
+      </nav>
+    </header>
+
+    <!-- Feed -->
+    <div id="view-feed" class="view hidden">
+      <div id="main-composer-wrapper">
+        <fieldset id="main-composer" class="composer">
+          <legend id="main-composer-label">New Spit</legend>
+          <div id="main-composer-body" class="composer-body">
+            <div class="composer-text">
+              <span id="main-composer-chars"></span><span class="cursor blink" id="main-cursor">▌</span>
+            </div>
+          </div>
+          <div class="composer-footer">
+            <span id="main-composer-hint" class="composer-hint"></span>
+            <span class="composer-actions">
+              <span id="main-char-count" class="char-count">0/280</span>
+              <button id="btn-blot" class="btn-submit btn-small" disabled>Spit it</button>
+            </span>
+          </div>
+        </fieldset>
+        <p id="draft-notice" class="draft-notice hidden">Draft saved — click above to continue.</p>
+      </div>
+
+      <div id="feed" class="feed"></div>
+    </div>
+
+    <!-- Post detail -->
+    <div id="view-post" class="view hidden">
+      <p class="view-back"><a href="#" id="btn-back">← Back</a></p>
+
+      <div id="post-detail-container"></div>
+
+      <h3 class="replies-heading">Replies</h3>
+
+      <div id="reply-composer-wrapper">
+        <fieldset id="reply-composer" class="composer">
+          <legend id="reply-composer-label">Your reply</legend>
+          <div id="reply-composer-body" class="composer-body">
+            <div class="composer-text">
+              <span id="reply-composer-chars"></span><span class="cursor blink" id="reply-cursor">▌</span>
+            </div>
+          </div>
+          <div class="composer-footer">
+            <span id="reply-composer-hint" class="composer-hint"></span>
+            <span class="composer-actions">
+              <span id="reply-char-count" class="char-count">0/280</span>
+              <button id="btn-blot-reply" class="btn-submit btn-small" disabled>Spit reply</button>
+            </span>
+          </div>
+        </fieldset>
+      </div>
+
+      <div id="replies-container" class="thread-replies"></div>
+    </div>
+
+    <!-- Profile -->
+    <div id="view-profile" class="view hidden">
+      <div id="profile-header-container"></div>
+      <div id="profile-posts-container" class="feed"></div>
+    </div>
+
+  </div>
+
+  <input
+    id="hidden-input"
+    type="text"
+    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+    aria-hidden="true" tabindex="-1"
+    style="position:fixed;top:0;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;"
+  >
+
+  <script src="app.js"></script>
+
+  <nav class="style-switcher">
+    <a href="index.html">0</a>
+    <a href="feed1.html">1</a>
+    <a href="feed2.html">2</a>
+    <a href="feed3.html" class="current">3</a>
+    <a href="feed4.html">4</a>
+    <a href="feed5.html">5</a>
+    <a href="feed6.html">6</a>
+    <a href="feed7.html">7</a>
+    <a href="feed8.html">8</a>
+    <a href="feed9.html">9</a>
+  </nav>
+</body>
+</html>
